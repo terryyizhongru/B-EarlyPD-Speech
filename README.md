@@ -3,7 +3,14 @@
 This repository contains the official benchmark splits and evaluation protocols for the paper:  
 **"A Benchmark for Early-stage Parkinson's Disease Detection from Speech"**
 
+[📖 Citation](#citation) |
+📣 _Accepted for [Interspeech 2026](https://arxiv.org/abs/2605.14066)!_
+
 ---
+
+## Acknowledgements
+
+Part of the project Responsible AI for Voice Diagnostics (RAIVD) with file number NGF.1607.22.013 of the research program NGF AiNed Fellowship Grants, which is financed by the Dutch Research Council (NWO). This work used the Dutch national e-infrastructure with the support of the SURF Cooperative using grant no. EINF-10519.
 
 ## Latest Updates
 - **Benchmark splits:** Speaker-independent, standardized splits are available in `benchmark_splits/`.
@@ -78,4 +85,35 @@ python3 preprocess_scripts/wav_preprocessing.py --wav-dir $DATASET_DIR/NeuroVoz_
 ```
 
 ---
+
+## <a name="citation"></a> 📖 Citation
+
+
+
+If you use this benchmark or splits from this project in academic work, please cite:
+
+ 
+
+### 📄 LaTeX (BibTeX)
+
+```bibtex
+
+@article{zhong2026benchmark,
+
+  title={A Benchmark for Early-stage Parkinson's Disease Detection from Speech},
+
+  author={Zhong, Terry Yi and Tejedor-Garcia, Cristian and Truong, Khiet P and Maas, Janna and Bosch, Louis ten and Bloem, Bastiaan R},
+
+  journal={arXiv preprint arXiv:2605.14066},
+
+  year={2026}
+
+}
+
+```
+
+
+
+
+
 
