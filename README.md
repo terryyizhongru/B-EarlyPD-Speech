@@ -1,119 +1,151 @@
 # A Benchmark for Early-stage Parkinson's Disease Detection from Speech
 
-This repository contains the official benchmark splits and evaluation protocols for the paper:  
-**"A Benchmark for Early-stage Parkinson's Disease Detection from Speech"**
+Data preparation and fixed five-fold splits for **A Benchmark for Early-stage Parkinson's Disease Detection from Speech** (Interspeech 2026; arXiv:2605.14066).
 
-[📖 Citation](#citation) |
-📣 _Accepted for [Interspeech 2026](https://arxiv.org/abs/2605.14066)!_
+This guide assumes you have downloaded **NeuroVoz** and **PC-GITA**, including the PC-GITA metadata. Follow the steps below to prepare audio and obtain training, validation, and test filelists. Run all commands from the repository root in the same Bash terminal.
 
----
+## Benchmark splits
+
+The repository provides fixed, speaker-independent five-fold splits for three speech tasks:
+
+- DDK /pa-ta-ka/
+- Sustained vowel /a/
+- Sentence reading
+
+The files under `folds_csv/` define the speaker-level splits. The task-specific TSV files contain the recordings that are available after task selection and audio preprocessing. Validation and test folds target 6 PD and 6 healthy-control speakers per group.
+
+For a small number of task/fold combinations, one or two selected speakers from a class have no usable recording after preprocessing. Those task-level validation or test TSVs therefore contain slightly fewer than 6 PD or 6 healthy-control speakers, although their filenames retain the `6PD6HC` convention. These released TSVs are the lists used in the paper experiments and are kept unchanged for result reproducibility. See [Validation notes](#validation-notes) for the affected folds.
+
+## 1. Install dependencies
+
+Use Python 3.10+ and SoX:
+
+```bash
+sudo apt-get install sox python3-venv
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements-preprocess.txt
+```
+
+## 2. Standardize filenames
+
+Replace the input paths below with your downloaded dataset directories. For PC-GITA, use the directory directly containing the task folders. Choose a new output directory for this run.
+
+```bash
+PD_WORK="/path/to/earlypd-prepared"
+PD_DATA="$PD_WORK/NeuroVoz_PCGITA"
+
+python preprocess_scripts/rename_neurovoz.py \
+  --data-dir /path/to/NeuroVoz/audios \
+  --new-data-dir "$PD_DATA/neurovoz_data/audios"
+
+python preprocess_scripts/rename_restruct_gita.py \
+  --data-dir /path/to/PC-GITA \
+  --metadata-path /path/to/Copia_de_PCGITA_metadata.xlsx \
+  --new-data-dir "$PD_DATA/pcgita_data/audios"
+```
+
+These commands copy the audio into a consistent naming scheme and preserve the original files.
+
+## 3. Preprocess audio
+
+Convert both datasets to **mono, 16 kHz, 16-bit WAV**, with **−3 dB peak normalization**:
+
+```bash
+python benchmark_tools/prepare_audio.py \
+  --wav-dir "$PD_DATA/neurovoz_data/audios" \
+  --output-dir "$PD_DATA/neurovoz_data/audios_fortrain"
+
+python benchmark_tools/prepare_audio.py \
+  --wav-dir "$PD_DATA/pcgita_data/audios" \
+  --output-dir "$PD_DATA/pcgita_data/audios_fortrain"
+```
+
+The processed audio is saved in each dataset's `audios_fortrain/` directory. Output directories must not already exist.
+
+## 4. Generate local filelists
+
+Update the supplied splits to point to your processed audio:
+
+```bash
+python benchmark_tools/prepare_splits.py \
+  --splits-dir benchmark_splits \
+  --data-root "$PD_DATA" \
+  --output-dir "$PD_WORK/runtime_splits"
+```
+
+The new filelists are saved in `runtime_splits/`. Only audio paths change; the benchmark's subjects, recordings, labels, and fold assignments are preserved.
+
+## 5. Check the prepared data
+
+```bash
+python benchmark_tools/validate_splits.py \
+  --splits-dir "$PD_WORK/runtime_splits" \
+  --check-audio \
+  --report "$PD_WORK/audit.json"
+```
+
+Check that `split_errors` and `audio_errors` are both **0**. If not, inspect `audit.json` before training.
+
+The current splits also produce warnings about missing task recordings and differences in HC training cohorts between settings. These are recorded in the report; the validator does not change the splits.
+
+### Validation notes
+
+The task-specific TSVs were checked against the filelists used for the paper experiments. All 60 validation/test lists across the three tasks, five folds, and EarlyPD/all-stage evaluations match the training-time lists in speaker membership, recording filenames, labels, and row order.
+
+The following validation/test lists are smaller than the nominal 6 PD + 6 healthy controls because task recordings are unavailable after preprocessing:
+
+| Task | Affected folds |
+|---|---|
+| DDK | Fold 1 test: 5 HC / 6 PD; Fold 1 validation: 5 HC / 6 PD; Fold 2 EarlyPD test: 6 HC / 5 PD; Fold 3 EarlyPD test: 6 HC / 5 PD; Fold 4 all-stage validation: 4 HC / 6 PD; Fold 4 EarlyPD validation: 4 HC / 5 PD |
+| Sustained vowel | Fold 3 EarlyPD test: 6 HC / 5 PD; Fold 5 validation: 6 HC / 5 PD |
+| Sentence | Fold 3 EarlyPD test: 6 HC / 5 PD; Fold 5 validation: 6 HC / 5 PD |
+
+For Fold 1 DDK, both EarlyPD and all-stage test lists have the same 5 HC / 6 PD count. Where EarlyPD and all-stage validation lists use the same available speakers, the table reports them together. These deviations should be retained when reproducing the published results.
+
+## 6. Use the filelists
+
+Choose a task and a fold (`fold_1` through `fold_5`):
+
+| Task | Directory under `runtime_splits/` |
+|---|---|
+| DDK /pa-ta-ka/ | `folds_tsv_DDK_ANALYSIS_PATAKA/` |
+| Sustained vowel /a/ | `folds_tsv_SUSTAINED-VOWELS_onlyA123/` |
+| Sentence reading | `folds_tsv_SENTENCES/` |
+
+Within each fold, select one training setting and use the matching validation and test lists:
+
+| Purpose | File |
+|---|---|
+| AllPD training | `train_and_val/train.tsv` |
+| AllPD-subset training | `train_and_val/train_allPDsubset.tsv` |
+| EarlyPD training | `train_and_val/train_earlybalance.tsv` |
+| EarlyPD validation | `train_and_val/val_early6PD6HC.tsv` |
+| EarlyPD test | `test_early6PD6HC.tsv` |
+
+Each TSV contains `ID` (speaker), `AUDIOFILE` (local WAV path), and `DIAGNOSIS` (`Healthy` or `Parkinson`). Read speaker IDs as strings to preserve leading zeros.
+
+For example, preview the Sentence fold 1 training list:
+
+```bash
+head -n 5 "$PD_WORK/runtime_splits/folds_tsv_SENTENCES/fold_1/train_and_val/train.tsv"
+```
+
+Model training and unified evaluation instructions will be added separately.
+
 
 ## Acknowledgements
 
-Part of the project Responsible AI for Voice Diagnostics (RAIVD) with file number NGF.1607.22.013 of the research program NGF AiNed Fellowship Grants, which is financed by the Dutch Research Council (NWO). This work used the Dutch national e-infrastructure with the support of the SURF Cooperative using grant no. EINF-10519.
-
-## Latest Updates
-- **Benchmark splits:** Speaker-independent, standardized splits are available in `benchmark_splits/`.
-- **Preprocess scripts:** Work in progress; code will be released/cleaned up.
-- **Evaluation scripts:** code will be released/cleaned up.
-
----
-
-## Benchmark splits: directory layout and naming
-
-The `benchmark_splits/` folder contains multiple split groups. Each group is a 5-fold cross-validation setup with:
-
-- `fold_1/` ... `fold_5/`
-- One test set per fold (early-stage PD benchmark)
-- A `train_and_val/` subfolder per fold containing the training and validation lists
-
-At a high level:
-
-- `folds_csv/`
-	- Speaker-level lists with metadata for each subject.
-	- Typical columns include: `ID`, `Group/Diagnosis`, demographics, clinical scores (e.g., HY stage, UPDRS), and dataset source.
-- `folds_tsv*/`
-	- Utterance/audio-level lists used for model training.
-	- Each row corresponds to one audio file and includes: subject `ID`, `AUDIOFILE` (wav path), and `DIAGNOSIS` (label).
-
-### What you find inside each fold
-
-Each `fold_x/` directory follows the same naming pattern (extension is `.csv` under `folds_csv/`, and `.tsv` under `folds_tsv*/`):
-
-- Test set:
-	- `test_early6PD6HC.*` (early-stage PD benchmark)
-	- `test_all6PD6HC.*` (all-stage PD test set)
+This work is part of the Responsible AI for Voice Diagnostics (RAIVD) project, file number NGF.1607.22.013, under the NGF AiNed Fellowship Grants research program financed by the Dutch Research Council (NWO). It used the Dutch national e-infrastructure with support from SURF Cooperative under grant EINF-10519.
 
 
-- Train/validation split (inside the subfolder):
-	- `train_and_val/`
-		- `train.*` (AllPD setting in the paper: the full set of PD speakers across all stages from the benchmark datasets)
-		- validation lists such as `val_early6PD6HC.*` and `val_all6PD6HC.*`
-
-### Split groups (tasks)
-
-- `folds_tsv_all/`
-	- Combined list covering all tasks/audios.
-
-Single-task training lists used in the benchmark paper experiments:
-
-- `folds_tsv_SENTENCES/`
-- `folds_tsv_DDK_ANALYSIS_PATAKA/`
-- `folds_tsv_SUSTAINED-VOWELS_onlyA123/`
-
-For these three single-task split groups, the `train_and_val/` folder also includes:
-
-- `train_allPDsubset.tsv` (AllPD-subset introduced in the paper: a distribution-matched subset of AllPD)
-- `train_earlybalance.tsv` (EarlyPD setting: the full set of EarlyPD speakers from the benchmark datasets)
-
-## Preprocessing
-
-Use the helper scripts in `preprocess_scripts/` to normalize raw NeuroVoz/PC-GITA audios before running any benchmark experiments. Provide `$DATASET_DIR` as the parent containing the source downloads and target root for the reorganized files.
-
-1. Rename and reorganize both datasets into `NeuroVoz_PCGITA` (the destination tree used by the benchmark):
-
-```
-python3 preprocess_scripts/rename_neurovoz.py $DATASET_DIR/neurovoz_v3/audios $DATASET_DIR/NeuroVoz_PCGITA/neurovoz_data/audios
-python3 preprocess_scripts/rename_restruct_gita.py --data-dir $DATASET_DIR/PC-GITA/ --new-data-dir $DATASET_DIR/NeuroVoz_PCGITA/pcgita_data/audios
-```
-
-2. Downsample and normalize the reorganized WAVs (default output goes into each `<wav-dir>/audios_fortrain`):
-
-```
-python3 preprocess_scripts/wav_preprocessing.py --wav-dir $DATASET_DIR/NeuroVoz_PCGITA/pcgita_data/audios
-python3 preprocess_scripts/wav_preprocessing.py --wav-dir $DATASET_DIR/NeuroVoz_PCGITA/neurovoz_data/audios
-```
-
----
-
-## <a name="citation"></a> 📖 Citation
-
-
-
-If you use this benchmark or splits from this project in academic work, please cite:
-
- 
-
-### 📄 LaTeX (BibTeX)
+## Citation
 
 ```bibtex
-
 @article{zhong2026benchmark,
-
   title={A Benchmark for Early-stage Parkinson's Disease Detection from Speech},
-
-  author={Zhong, Terry Yi and Tejedor-Garcia, Cristian and Truong, Khiet P and Maas, Janna and Bosch, Louis ten and Bloem, Bastiaan R},
-
+  author={Zhong, Terry Yi and Tejedor-Garcia, Cristian and Truong, Khiet P and Maas, Janna and ten Bosch, Louis and Bloem, Bastiaan R},
   journal={arXiv preprint arXiv:2605.14066},
-
   year={2026}
-
 }
-
 ```
-
-
-
-
-
-
