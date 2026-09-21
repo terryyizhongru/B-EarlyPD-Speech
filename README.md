@@ -14,8 +14,6 @@ The repository provides fixed, speaker-independent five-fold splits for three sp
 
 The files under `folds_csv/` define the speaker-level splits. The task-specific TSV files contain the recordings that are available after task selection and audio preprocessing. Validation and test folds target 6 PD and 6 healthy-control speakers per group.
 
-For a small number of task/fold combinations, one or two selected speakers from a class have no usable recording after preprocessing. Those task-level validation or test TSVs therefore contain slightly fewer than 6 PD or 6 healthy-control speakers, although their filenames retain the `6PD6HC` convention. These released TSVs are the lists used in the paper experiments and are kept unchanged for result reproducibility. See [Validation notes](#validation-notes) for the affected folds.
-
 ## 1. Install dependencies
 
 Use Python 3.10+ and SoX:
@@ -91,17 +89,7 @@ The current splits also produce warnings about missing task recordings and diffe
 
 ### Validation notes
 
-The task-specific TSVs were checked against the filelists used for the paper experiments. All 60 validation/test lists across the three tasks, five folds, and EarlyPD/all-stage evaluations match the training-time lists in speaker membership, recording filenames, labels, and row order.
-
-The following validation/test lists are smaller than the nominal 6 PD + 6 healthy controls because task recordings are unavailable after preprocessing:
-
-| Task | Affected folds |
-|---|---|
-| DDK | Fold 1 test: 5 HC / 6 PD; Fold 1 validation: 5 HC / 6 PD; Fold 2 EarlyPD test: 6 HC / 5 PD; Fold 3 EarlyPD test: 6 HC / 5 PD; Fold 4 all-stage validation: 4 HC / 6 PD; Fold 4 EarlyPD validation: 4 HC / 5 PD |
-| Sustained vowel | Fold 3 EarlyPD test: 6 HC / 5 PD; Fold 5 validation: 6 HC / 5 PD |
-| Sentence | Fold 3 EarlyPD test: 6 HC / 5 PD; Fold 5 validation: 6 HC / 5 PD |
-
-For Fold 1 DDK, both EarlyPD and all-stage test lists have the same 5 HC / 6 PD count. Where EarlyPD and all-stage validation lists use the same available speakers, the table reports them together. These deviations should be retained when reproducing the published results.
+Because some task recordings are unavailable after preprocessing, a few validation or test lists contain one or two fewer PD or healthy-control speakers than the nominal 6 PD + 6 HC; these are the lists used in the paper experiments and should be retained for reproduction.
 
 ## 6. Use the filelists
 
