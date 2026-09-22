@@ -37,7 +37,7 @@ This guide assumes you have downloaded **NeuroVoz** and **PC-GITA**, including t
 
 The benchmark provides fixed, speaker-independent five-fold splits for DDK /pa-ta-ka/, sustained vowel /a/, and sentence reading. Each task has recording-level training, validation, and test TSVs based on the speaker-level fold definitions.
 
-See [Benchmark experiment settings](#4-benchmark-experiment-settings) for the task directories, fold layout, TSV columns, and lists used by each paper setting. [Validation notes](#validation-notes) explains why a few validation or test folds have fewer than the nominal 6 PD and 6 healthy-control speakers.
+See [Benchmark experiment settings](#4-benchmark-experiment-settings) for the task directories, fold layout, TSV columns, and lists used by each paper setting. 
 
 ## 1. Install dependencies
 
