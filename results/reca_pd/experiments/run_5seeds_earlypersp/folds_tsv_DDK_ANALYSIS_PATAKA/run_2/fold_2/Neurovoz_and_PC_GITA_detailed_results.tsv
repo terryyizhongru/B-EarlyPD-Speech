@@ -1,0 +1,12 @@
+ID	AUDIOFILE	DIAGNOSIS	probability	true_label	predicted_label
+AVPEPUDEA0002	/data/storage1t/NeuroVoz_PCGITA/pcgita_data/audios_fortrain/PD_DDK_ANALYSIS_AVPEPUDEA0002_PATAKA.wav	Parkinson	0.9999234676361084	1	1
+AVPEPUDEA0022	/data/storage1t/NeuroVoz_PCGITA/pcgita_data/audios_fortrain/PD_DDK_ANALYSIS_AVPEPUDEA0022_PATAKA.wav	Parkinson	0.03517652302980423	1	0
+AVPEPUDEA0001	/data/storage1t/NeuroVoz_PCGITA/pcgita_data/audios_fortrain/PD_DDK_ANALYSIS_AVPEPUDEA0001_PATAKA.wav	Parkinson	0.9957463145256042	1	1
+0066	/data/storage1t/NeuroVoz_PCGITA/neurovoz_data/audios_fortrain/PD_DDK_ANALYSIS_0066_PATAKA.wav	Parkinson	0.840274453163147	1	1
+0029	/data/storage1t/NeuroVoz_PCGITA/neurovoz_data/audios_fortrain/PD_DDK_ANALYSIS_0029_PATAKA.wav	Parkinson	0.002477275440469384	1	0
+AVPEPUDEAC0054	/data/storage1t/NeuroVoz_PCGITA/pcgita_data/audios_fortrain/HC_DDK_ANALYSIS_AVPEPUDEAC0054_PATAKA.wav	Healthy	0.1027265340089798	0	0
+AVPEPUDEAC0034	/data/storage1t/NeuroVoz_PCGITA/pcgita_data/audios_fortrain/HC_DDK_ANALYSIS_AVPEPUDEAC0034_PATAKA.wav	Healthy	0.012316676788032055	0	0
+AVPEPUDEAC0051	/data/storage1t/NeuroVoz_PCGITA/pcgita_data/audios_fortrain/HC_DDK_ANALYSIS_AVPEPUDEAC0051_PATAKA.wav	Healthy	0.0037582514341920614	0	0
+0048	/data/storage1t/NeuroVoz_PCGITA/neurovoz_data/audios_fortrain/HC_DDK_ANALYSIS_0048_PATAKA.wav	Healthy	0.00048737795441411436	0	0
+0051	/data/storage1t/NeuroVoz_PCGITA/neurovoz_data/audios_fortrain/HC_DDK_ANALYSIS_0051_PATAKA.wav	Healthy	0.9997907280921936	0	1
+0052	/data/storage1t/NeuroVoz_PCGITA/neurovoz_data/audios_fortrain/HC_DDK_ANALYSIS_0052_PATAKA.wav	Healthy	0.00020584758021868765	0	0

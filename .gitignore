@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.py[cod]
+outputs/
+/B-EarlyPD-Speech/
+/failed_files.txt
+/results/reca_pd/README.md
+/results/reca_pd/logs/
+/results/reca_pd/reference_results/
+/results/reca_pd/scripts/
+/results/reca_pd/validation/
+.pytest_cache/
+.ipynb_checkpoints/

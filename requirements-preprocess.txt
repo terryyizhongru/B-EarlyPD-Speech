@@ -1,0 +1,5 @@
+# Only the inherited PC-GITA renaming script needs these packages.
+# Working versions still need validation against the original raw dataset.
+pandas>=2,<3
+openpyxl>=3.1,<4
+tqdm>=4.66,<5

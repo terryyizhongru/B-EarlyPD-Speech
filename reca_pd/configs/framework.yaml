@@ -1,0 +1,55 @@
+tasks:
+  - name: SUSTAINED-VOWELS
+    features: [articulation, glottal, phonation, prosody]
+  - name: DDK
+    features: [articulation, glottal, phonation, prosody]
+  - name: SENTENCES
+    features: [articulation, glottal, phonation, prosody]
+
+features:
+  - name: articulation
+    input_dim: 4
+    toolkit: disvoice
+    metadata: "./reca_pd/metadata/target_disvoice/articulation.csv"
+  - name: glottal
+    input_dim: 14
+    toolkit: disvoice
+    metadata: "./reca_pd/metadata/target_disvoice/glottal.csv"
+  - name: phonation
+    input_dim: 7
+    toolkit: disvoice
+    metadata: "./reca_pd/metadata/target_disvoice/phonation.csv"
+  - name: prosody
+    input_dim: 10
+    toolkit: disvoice
+    metadata: "./reca_pd/metadata/target_disvoice/prosody.csv"
+
+ssl_features: wav2vec
+ssl_features_conf:
+  input_dim: 1024
+  layer_id: "layer07"
+ssl_fps: 50.0
+ssl_max_len_sec: 10.0
+
+model: RECAPD
+model_conf:
+  dropout: 0.1
+  num_heads: 1
+  latent_dim: 1024
+
+training_settings:
+  optimizer: adamw
+  scheduler: onecycle
+  anneal_strategy: cos
+  loss_criterion: cross_entropy
+  epochs: 5
+  batch_size: 8
+  accum_grad: 1
+  learning_rate: 0.0004
+  num_workers: 0
+
+num_classes: 2
+class_names: [HC, PD]
+seed: 42
+device: cuda
+dtype: float32
