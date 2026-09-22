@@ -1,0 +1,9 @@
+Setting: run_5seeds_early
+Task: folds_tsv_SUSTAINED-VOWELS_onlyA123
+Runs: run_1, run_2, run_3, run_4, run_5
+Metadata: evals/metadata/speaker_gender.csv
+Averaging: mean over folds per run, then mean over runs (unweighted).
+
+Gender	Mean_F1	RunStd_F1	MeanFoldStd_F1	Mean_AUC	RunStd_AUC	MeanFoldStd_AUC
+M	0.5242	0.0423	0.1705	0.4072	0.0417	0.0989
+F	0.7310	0.0181	0.1055	0.6959	0.0281	0.1505

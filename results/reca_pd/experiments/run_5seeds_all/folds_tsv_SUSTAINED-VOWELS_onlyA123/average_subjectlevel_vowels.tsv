@@ -1,0 +1,2 @@
+root	runs	sample_k	sample_seed	Mean_F1	Mean_AUC	Delta_F1	Delta_AUC
+folds_tsv_SUSTAINED-VOWELS_onlyA123	run_1,run_2,run_3,run_4,run_5	0	0	0.6224	0.5976	-0.0291	-0.0283

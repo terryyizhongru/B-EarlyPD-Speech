@@ -1,0 +1,2 @@
+root	runs	sample_k	sample_seed	Mean_F1	Std_F1	MeanRunStd_F1	Mean_AUC	Std_AUC	MeanRunStd_AUC	MeanSubjectsPerFold	MeanPCGITASubjectsPerFold	MeanNeuroVozSubjectsPerFold
+folds_tsv_SUSTAINED-VOWELS_onlyA123	run_1,run_2,run_3,run_4,run_5	0	42	0.6011	0.0558	0.1056	0.5824	0.0225	0.1578	11.8000	5.6000	6.2000
