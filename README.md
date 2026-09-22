@@ -35,21 +35,9 @@ This guide assumes you have downloaded **NeuroVoz** and **PC-GITA**, including t
 
 ## Benchmark splits
 
-The repository provides fixed, speaker-independent five-fold splits for three speech tasks:
+The benchmark provides fixed, speaker-independent five-fold splits for DDK /pa-ta-ka/, sustained vowel /a/, and sentence reading. Each task has recording-level training, validation, and test TSVs based on the speaker-level fold definitions.
 
-- DDK /pa-ta-ka/
-- Sustained vowel /a/
-- Sentence reading
-
-```text
-benchmark_splits/
-├── folds_csv/                              # speaker-level fold definitions
-├── folds_tsv_DDK_ANALYSIS_PATAKA/         # DDK /pa-ta-ka/
-├── folds_tsv_SUSTAINED-VOWELS_onlyA123/   # sustained vowel /a/
-└── folds_tsv_SENTENCES/                    # sentence reading
-```
-
-The files under `folds_csv/` define the speaker-level splits. The task-specific TSV files contain the recordings that are available after task selection and audio preprocessing. Validation and test folds target 6 PD and 6 healthy-control speakers per group.
+See [Benchmark experiment settings](#4-benchmark-experiment-settings) for the task directories, fold layout, TSV columns, and lists used by each paper setting. [Validation notes](#validation-notes) explains why a few validation or test folds have fewer than the nominal 6 PD and 6 healthy-control speakers.
 
 ## 1. Install dependencies
 
@@ -151,7 +139,9 @@ The benchmark contains three task directories under `runtime_splits/`:
 | Sustained vowel /a/ | `folds_tsv_SUSTAINED-VOWELS_onlyA123/` |
 | Sentence reading | `folds_tsv_SENTENCES/` |
 
-The paper experiments include the following training settings. Each task directory contains `fold_1` through `fold_5`.
+`benchmark_splits/folds_csv/` defines the speaker-level folds. Each task directory contains `fold_1/` through `fold_5/`. Within each fold, training and validation TSVs are in `train_and_val/`, while test TSVs are directly under `fold_N/`. The task TSVs contain recordings available after task selection and preprocessing.
+
+The paper experiments include the following training settings.
 
 | Setting | Training list | Validation list | Test list |
 |---|---|---|---|
