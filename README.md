@@ -15,7 +15,7 @@ This work is part of the Responsible AI for Voice Diagnostics (RAIVD) project, f
 
 - Fixed speaker-independent five-fold splits are available for DDK, sustained vowel, and Sentence tasks.
 - Unified prediction export and evaluation tools are available for recording-, gender-, and subject-level results.
-- RECA-PD reproduction code and archived benchmark outputs are included as the first baseline implementation.
+- RECA-PD, BDHPD, and Inception-PD reproduction guides and archived text results are available.
 
 ---
 
@@ -37,7 +37,7 @@ This guide assumes you have downloaded **NeuroVoz** and **PC-GITA**, including t
 
 The benchmark provides fixed, speaker-independent five-fold splits for DDK /pa-ta-ka/, sustained vowel /a/, and sentence reading. Each task has recording-level training, validation, and test TSVs based on the speaker-level fold definitions.
 
-See [Benchmark experiment settings](#4-benchmark-experiment-settings) for the task directories, fold layout, TSV columns, and lists used by each paper setting. 
+See [Benchmark experiment settings](#4-benchmark-experiment-settings) for the task directories, fold layout, TSV columns, and lists used by each paper setting.
 
 ## 1. Install dependencies
 
@@ -326,7 +326,13 @@ The complete directory contract and additional examples are documented in [`eval
 
 ## 7. Reproduce baseline models from the paper
 
-The repository provides the code needed to run the paper baselines with the fixed benchmark splits. As a worked example, the [RECA-PD reproduction guide](reca_pd/README.md) covers feature extraction, input checks, the five-fold launchers, and the result files consumed by the evaluation tools. Prepare `runtime_splits/` with the steps above, then follow the model-specific README for its remaining preprocessing and training commands.
+Prepare `runtime_splits/` with the steps above, then follow the model-specific guide for any additional preprocessing, five-run/five-fold training, and evaluation. The baseline code in this repository was adapted from the official code repositories for each method:
+
+- RECA-PD: [benchmark reproduction guide](reca_pd/README.md) · [official source code](https://github.com/terryyizhongru/RECA-PD)
+- BDHPD: [benchmark reproduction guide](bdhpd/README.md) · [official source code](https://github.com/MorenoLaQuatra/BDHPD)
+- Inception-PD: [benchmark reproduction guide](inception_pd/README.md) · [official source code](https://github.com/terryyizhongru/CNN-PD-Voice)
+
+Archived text results are under `results/reca_pd/`, `results/bdhpd/`, and `results/inception_pd/`.
 
 ### Add private training data (Private track)
 
@@ -339,7 +345,6 @@ A private cohort can be added to the training portion of a baseline experiment w
 
 Private speaker IDs must be unique and must not overlap any public benchmark speaker. Results obtained with a different private cohort follow the same protocol but are not an exact reproduction of the paper's private-data result. See [Add private training data with RECA-PD](reca_pd/README.md#6-add-private-training-data) for a concrete generator, validation command, and launcher example.
 
-Additional baseline integrations will be linked here as they are completed.
 
 
 ## Citation

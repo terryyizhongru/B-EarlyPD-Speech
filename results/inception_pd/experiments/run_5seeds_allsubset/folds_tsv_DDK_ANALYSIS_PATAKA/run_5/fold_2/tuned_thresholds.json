@@ -1,0 +1,5 @@
+{
+  "threshold": 0.55,
+  "strategy": "max_f1",
+  "grid": 101
+}

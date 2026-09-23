@@ -1,0 +1,28 @@
+Setting: run_5seeds_earlypersp
+Task: Sustained vowel /a/
+Runs: run_1, run_2, run_3, run_4, run_5
+Averaging: mean over folds per run, then mean over runs (unweighted).
+The probability column is the positive-class probability; saved predicted_label is used for label metrics.
+
+Cohort	Metric	Mean	RunStd	MeanFoldStd
+Combined	Accuracy	0.5686	0.0256	0.0729
+Combined	F1	0.6551	0.0280	0.0867
+Combined	Precision	0.5610	0.0225	0.0581
+Combined	AUC	0.5976	0.0402	0.0959
+Combined	Sensitivity	0.8333	0.0635	0.1943
+Combined	Specificity	0.2818	0.0760	0.2310
+Combined	BalancedAccuracy	0.5576	0.0277	0.0785
+PC-GITA	Accuracy	0.6033	0.0627	0.1139
+PC-GITA	F1	0.6864	0.0571	0.1093
+PC-GITA	Precision	0.5756	0.0498	0.0964
+PC-GITA	AUC	0.7865	0.0671	0.1295
+PC-GITA	Sensitivity	0.8867	0.0771	0.1589
+PC-GITA	Specificity	0.3200	0.1046	0.2524
+PC-GITA	BalancedAccuracy	0.6033	0.0627	0.1139
+NeuroVoz	Accuracy	0.5301	0.0665	0.1059
+NeuroVoz	F1	0.6176	0.0637	0.1336
+NeuroVoz	Precision	0.5598	0.0846	0.1495
+NeuroVoz	AUC	0.3727	0.0440	0.1985
+NeuroVoz	Sensitivity	0.7759	0.0912	0.2518
+NeuroVoz	Specificity	0.2377	0.0925	0.2797
+NeuroVoz	BalancedAccuracy	0.5068	0.0687	0.1138

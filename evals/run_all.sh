@@ -20,4 +20,8 @@ fi
 
 "$python_bin" "$script_dir/aggregate_main_results.py" "$setting_dir"
 "$python_bin" "$script_dir/aggregate_gender_results.py" "$setting_dir"
-"$python_bin" "$script_dir/aggregate_subject_results.py" "$setting_dir"
+subject_args=()
+if [[ -n "${SUBJECT_SAMPLE_SALT_ROOT:-}" ]]; then
+  subject_args+=(--sample-salt-root "$SUBJECT_SAMPLE_SALT_ROOT")
+fi
+"$python_bin" "$script_dir/aggregate_subject_results.py" "$setting_dir" "${subject_args[@]}"

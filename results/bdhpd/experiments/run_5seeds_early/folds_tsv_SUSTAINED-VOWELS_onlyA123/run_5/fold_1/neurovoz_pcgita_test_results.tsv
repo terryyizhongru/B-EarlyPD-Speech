@@ -1,0 +1,11 @@
+metric	value
+accuracy	59.38
+precision	58.82
+recall	62.50
+f1	60.61
+roc_auc	55.47
+sensitivity	62.50
+specificity	56.25
+loss	132.23
+threshold	9.00
+59.38	58.82	62.50	60.61	55.47	62.50	56.25
