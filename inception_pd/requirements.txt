@@ -1,0 +1,11 @@
+# Versions used to verify the archived mel spectrograms and result aggregation.
+tensorflow==2.17.0
+numpy==1.24.4
+pandas==2.0.3
+scikit-learn==1.3.2
+matplotlib==3.10.5
+librosa==0.10.1
+Pillow==10.2.0
+tqdm==4.67.1
+torch==2.2.0
+torchaudio==2.2.0

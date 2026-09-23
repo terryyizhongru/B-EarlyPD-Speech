@@ -1,0 +1,17 @@
+{
+  "confusion_matrix": [
+    [
+      2,
+      3
+    ],
+    [
+      0,
+      6
+    ]
+  ],
+  "threshold": 0.15,
+  "f1": 0.8,
+  "avg_auc": 0.9,
+  "std_auc": 0.0,
+  "n": 11
+}

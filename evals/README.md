@@ -133,7 +133,17 @@ The setting directories used by the paper are:
 | `run_5seeds_earlypersp` | EarlyPD plus private prospective data |
 | `run_5seeds_allPDval` | All-stage validation/test experiment |
 
-The three Python aggregators accept either the complete setting directory shown above or one `folds_tsv_*` task directory.
+The three Python aggregators accept either the complete setting directory shown above or one `folds_tsv_*` task directory. Sentence k=3/k=10 sampling uses a stable string built from a logical experiment root, setting, task, run, fold, and speaker ID. The default root reproduces the historical RECA-PD sampling. To reproduce the archived BDHPD or Inception-PD subject-level numbers, set `SUBJECT_SAMPLE_SALT_ROOT` when using `run_all.sh` (or pass `--sample-salt-root` to `aggregate_subject_results.py`):
+
+```bash
+SUBJECT_SAMPLE_SALT_ROOT=/data/storage1t/projects/early/BDHPD \
+  ./evals/run_all.sh results/bdhpd/experiments/run_5seeds_all
+
+SUBJECT_SAMPLE_SALT_ROOT=/data/storage2/gits/CNN-PD-Voice/outputs \
+  ./evals/run_all.sh results/inception_pd/experiments/run_5seeds_all
+```
+
+These strings seed the sampler; the original directories do not need to exist on the machine running evaluation. Use the same value across repeated evaluations of one model.
 
 To process every task in a setting:
 

@@ -1,0 +1,7 @@
+{
+  "grid": 101,
+  "strategy": "max_f1",
+  "thresholds": {
+    "Neurovoz_and_PC_GITA": 0.01
+  }
+}

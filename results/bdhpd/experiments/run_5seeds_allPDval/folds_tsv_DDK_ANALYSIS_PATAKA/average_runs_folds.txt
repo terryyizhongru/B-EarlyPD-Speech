@@ -1,0 +1,28 @@
+Setting: run_5seeds_allPDval
+Task: DDK /pa-ta-ka/
+Runs: run_1, run_2, run_3, run_4, run_5
+Averaging: mean over folds per run, then mean over runs (unweighted).
+The probability column is the positive-class probability; saved predicted_label is used for label metrics.
+
+Cohort	Metric	Mean	RunStd	MeanFoldStd
+Combined	Accuracy	0.6700	0.0414	0.0855
+Combined	F1	0.7243	0.0414	0.0564
+Combined	Precision	0.6528	0.0112	0.1014
+Combined	AUC	0.7936	0.0455	0.0889
+Combined	Sensitivity	0.8533	0.0686	0.1280
+Combined	Specificity	0.4760	0.0496	0.2341
+Combined	BalancedAccuracy	0.6647	0.0418	0.0907
+PC-GITA	Accuracy	0.6720	0.0932	0.1452
+PC-GITA	F1	0.7510	0.0676	0.1021
+PC-GITA	Precision	0.6553	0.0659	0.1458
+PC-GITA	AUC	0.8489	0.0736	0.1507
+PC-GITA	Sensitivity	0.9200	0.0777	0.0920
+PC-GITA	Specificity	0.4000	0.1619	0.3009
+PC-GITA	BalancedAccuracy	0.6600	0.1003	0.1442
+NeuroVoz	Accuracy	0.6695	0.0484	0.1108
+NeuroVoz	F1	0.6937	0.0581	0.1273
+NeuroVoz	Precision	0.6753	0.0581	0.1531
+NeuroVoz	AUC	0.7511	0.0562	0.1443
+NeuroVoz	Sensitivity	0.7867	0.0777	0.2282
+NeuroVoz	Specificity	0.5200	0.0865	0.3042
+NeuroVoz	BalancedAccuracy	0.6533	0.0490	0.1300

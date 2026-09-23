@@ -1,0 +1,9 @@
+Setting: run_5seeds_allPDval
+Task: folds_tsv_DDK_ANALYSIS_PATAKA
+Runs: run_1, run_2, run_3, run_4, run_5
+Metadata: evals/metadata/speaker_gender.csv
+Averaging: mean over folds per run, then mean over runs (unweighted).
+
+Gender	Mean_F1	RunStd_F1	MeanFoldStd_F1	Mean_AUC	RunStd_AUC	MeanFoldStd_AUC
+M	0.7486	0.0496	0.0938	0.7722	0.0881	0.1661
+F	0.7001	0.0542	0.1119	0.8089	0.0310	0.1337

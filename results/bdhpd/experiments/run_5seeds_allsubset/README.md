@@ -1,0 +1,1 @@
+BDHPD AllPD-subset completed in the original runallsub.log (75 folds), but its prediction TSVs and checkpoints are absent from the original experiment directory. The two TSVs here are derived from the saved per-fold test metrics in that log. They reproduce the paper's AllPD-subset F1 and AUC values; recording-, gender-, and subject-level evaluation cannot be rerun from them.
